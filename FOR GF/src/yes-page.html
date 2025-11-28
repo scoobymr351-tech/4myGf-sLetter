@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details</title>
+    <link rel="stylesheet" href="styles/game.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Game Details 💕</h1>
+        <p style="font-size: 1.4em; color: #ff69b4; margin-bottom: 20px;">best of luck my baby! 💕</p>
+        
+        <form id="detailsForm">
+            <div class="form-group">
+                <label for="playerName">Your Name:</label>
+                <input type="text" id="playerName" placeholder="Enter your name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty" required>
+                    <option value="">Select Difficulty</option>
+                    <option value="easy">Easy (for my cute baby)</option>
+                    <option value="medium">Medium (for my baby who is mad)</option>
+                    <option value="hard">Hard (independent baby)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">A Message for Me:</label>
+                <textarea id="message" placeholder="Write something sweet..." rows="4"></textarea>
+            </div>
+            
+            <button type="submit" class="choice-btn">Start Game!</button>
+            <button type="button" class="choice-btn" id="skipWinBtn">Skip and Win</button>
+        </form>
+        
+        <button class="choice-btn" onclick="location.href='index.html'">Go Back</button>
+    </div>
+
+    <script src="scripts/form.js"></script>
+    <script src="scripts/cursor.js"></script>
+    <script>
+        document.getElementById('skipWinBtn').addEventListener('click', function() {
+            const name = document.getElementById('playerName')?.value || 'Baby';
+            const difficulty = document.getElementById('difficulty')?.value || 'easy';
+            const message = document.getElementById('message')?.value || '';
+            localStorage.setItem('playerName', name);
+            localStorage.setItem('difficulty', difficulty);
+            localStorage.setItem('message', message);
+            localStorage.setItem('forceWin', '1');
+            window.location.href = 'game.html';
+        });
+    </script>
+</body>
+</html>

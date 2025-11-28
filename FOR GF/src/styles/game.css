@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Great Vibes', cursive;
+    background: linear-gradient(135deg, #ffc0cb 0%, #ffb6d9 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+h1 {
+    color: #ff69b4;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    color: #ff69b4;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border: 2px solid #ff69b4;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.95em;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ff1493;
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.choice-btn {
+    padding: 10px 25px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 8px;
+    background: #ff69b4;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+}
+
+.choice-btn:hover {
+    background: #ff1493;
+    transform: scale(1.05);
+}
+
+.score-display {
+    background: #ffe4f0;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.score-display p {
+    color: #ff69b4;
+    font-size: 1.3em;
+    margin: 0;
+}
+
+#scoreCount {
+    font-weight: bold;
+    color: #ff1493;
+    font-size: 1.2em;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 280px;
+}
+
+.card {
+    width: 55px;
+    height: 55px;
+    background: #ff69b4;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: bold;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card.flipped {
+    background: #ffe4f0;
+    color: #ff69b4;
+}
+
+.card.matched {
+    background: #90EE90;
+    cursor: not-allowed;
+}
+
+/* Winner Modal Styles: two image columns on opposite sides */
+.winner-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.images-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 160px;
+    height: 340px;
+    justify-content: center;
+}
+
+.side-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    animation: floatSlide 6s linear infinite;
+}
+
+.side-img:nth-child(2) { animation-delay: 3s; }
+
+@keyframes floatSlide {
+    0% { transform: translateY(10px); opacity: 0; }
+    10% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(0); opacity: 1; }
+    90% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-10px); opacity: 0; }
+}
+
+.winner-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    max-width: 420px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.winner-form {
+    text-align: center;
+}
+
+.winner-form h1 {
+    color: #ff69b4;
+    font-size: 1.8em;
+    margin-bottom: 12px;
+}
+
+.winner-name {
+    font-size: 1.2em;
+    color: #ff69b4;
+    margin: 6px 0;
+    font-weight: 700;
+}
+
+.winner-sub {
+    color: #666;
+    margin-bottom: 18px;
+}
+
+/* Images are outside the white box (visible beside it) */
+.images-carousel {
+    display: flex;
+    gap: 12px;
+    overflow: hidden;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 12px;
+    background: transparent;
+}
+
+.carousel-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    animation: slide 8s infinite;
+}
+
+.carousel-img:nth-child(2) { animation-delay: 2s; }
+.carousel-img:nth-child(3) { animation-delay: 4s; }
+.carousel-img:nth-child(4) { animation-delay: 6s; }
+
+@keyframes slide {
+    0% { opacity: 0; transform: translateX(-40px); }
+    10% { opacity: 1; transform: translateX(0); }
+    80% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(40px); }
+}
+
+@media (max-width: 760px) {
+    .winner-modal {
+        flex-direction: column;
+        gap: 18px;
+        padding: 12px;
+    }
+    .images-carousel {
+        width: 90%;
+        height: 180px;
+    }
+    .carousel-img { width: 100%; height: 180px; }
+    .winner-content { max-width: 100%; padding: 20px; }
+}
+
+@media (max-width: 900px) {
+    .winner-modal {
+        flex-direction: column;
+        gap: 18px;
+        padding: 12px;
+    }
+    .images-column {
+        width: 90%;
+        height: auto;
+        flex-direction: row;
+    }
+    .side-img {
+        width: 45%;
+        height: 140px;
+    }
+    .winner-content { max-width: 100%; padding: 20px; }
+}
+
+/* Letter Modal Styles with flowing hearts background */
+.letter-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+    overflow: hidden;
+}
+
+/* Flowing hearts background */
+.letter-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.flowing-heart {
+    position: absolute;
+    font-size: 2em;
+    opacity: 0.6;
+    animation: heartFlow 6s infinite linear;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes heartFlow {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.letter-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.letter-container h2 {
+    color: #ff69b4;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+#letterText {
+    color: #555;
+    font-size: 1.1em;
+    line-height: 1.8;
+    text-align: left;
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 4px solid #ff69b4;
+    min-height: 300px;
+    max-height: 400px;
+    margin-bottom: 25px;
+    font-family: 'Georgia', serif;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Custom scrollbar styling */
+#letterText::-webkit-scrollbar {
+    width: 8px;
+}
+
+#letterText::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+#letterText::-webkit-scrollbar-thumb {
+    background: #ff69b4;
+    border-radius: 10px;
+}
+
+#letterText::-webkit-scrollbar-thumb:hover {
+    background: #ff1493;
+}
+
+/* Firefox scrollbar */
+#letterText {
+    scrollbar-color: #ff69b4 #f0f0f0;
+    scrollbar-width: thin;
+}
+
+.letter-container .choice-btn {
+    padding: 12px 30px;
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    .letter-container {
+        padding: 25px;
+    }
+    
+    #letterText {
+        font-size: 1em;
+        min-height: auto;
+    }
+}
